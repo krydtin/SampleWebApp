@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -58,8 +56,7 @@ public class Customer {
 
     public static Customer findById(int id) {
         Customer customer = null;
-        try {
-            final Connection con = ConnectionBuilder.getConnection();
+        try (final Connection con = ConnectionBuilder.getConnection()) {
             final String sqlCmd = "SELECT customer_id, name, credit_limit, email FROM customer where customer_id = ?";
             final PreparedStatement stm = con.prepareStatement(sqlCmd);
             stm.setInt(1, id);
@@ -68,7 +65,6 @@ public class Customer {
                 customer = new Customer();
                 mapFieldToObject(rs, customer);
             }
-            con.close();
         } catch (SQLException ex) {
             System.err.println(ex);
         }
@@ -78,9 +74,8 @@ public class Customer {
 
     public static List<Customer> findByName(String cond) {
         List<Customer> customers = null;
-        Customer customer = null;
-        try {
-            final Connection con = ConnectionBuilder.getConnection();
+        Customer customer;
+        try (final Connection con = ConnectionBuilder.getConnection()) {
             final String sqlCmd = "SELECT customer_id, name, credit_limit, email FROM customer where name LIKE ?";
             final PreparedStatement stm = con.prepareStatement(sqlCmd);
             stm.setString(1, cond + "%");
@@ -93,7 +88,6 @@ public class Customer {
                 }
                 customers.add(customer);
             }
-            con.close();
         } catch (SQLException ex) {
             System.err.println(ex);
         }
@@ -102,10 +96,7 @@ public class Customer {
     }
 
     public int insertNewCustomer() {
-        Customer customer = null;
-        Connection con = null;
-        try {
-            con = ConnectionBuilder.getConnection();
+        try (final Connection con = ConnectionBuilder.getConnection()) {
             final String sqlCmd = "INSERT INTO customer (customer_id, name, credit_limit, email, zip, discount_code) "
                     + "VALUES (?, ?, ?, ?, '95117', 'M')";
             final PreparedStatement stm = con.prepareStatement(sqlCmd);
@@ -116,14 +107,6 @@ public class Customer {
             return stm.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex);
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    System.err.println(ex);
-                }
-            }
         }
 
         return -1;

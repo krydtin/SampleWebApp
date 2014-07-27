@@ -9,25 +9,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Customer</title>
     </head>
     <body>
         <form action="AddCustomer" method="post">
-            <div> 
-                Customer Id : <input type="number" name="inputId"/>
-            </div>
-            <div>
-                Name : <input type="text" name="inputName"/>
-            </div>
-            <div>
-                Email : <input type="text" name="inputEmail"/>
-            </div>
-            <div>
-                Credit Limit : <input type="text" name="inputCreditLimit"/>
-            </div>
-            <div>
-                <input type="submit" value="Add"/>
-            </div>
+            <table>
+                <tr>
+                    <td>Customer Id : </td>
+                    <td><input type="number" required name="inputId"/></td>
+                </tr>
+                <tr>
+                    <td>Name : </td>
+                    <td><input type="text" required name="inputName"/></td>
+                </tr>
+                <tr>
+                    <td>Email : </td>
+                    <td><input type="text" required name="inputEmail"/></td>
+                </tr>
+                <tr>
+                    <td>Credit Limit : </td>
+                    <td><input type="text" required name="inputCreditLimit"/></td>
+                </tr>
+                <tr>
+                    <td/>
+                    <td><input type="submit" value="Add" style="float: right"/></td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>

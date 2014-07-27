@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
 import java.io.IOException;
@@ -20,11 +14,11 @@ import model.Customer;
  * @author INT676
  */
 @WebServlet("/SearchCustomer")
-public class SearchCustomer extends HttpServlet {
+public class SearchCustomerServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String s = request.getParameter("s");
-        List<Customer> customers = Customer.findByName(s);
+        final String s = request.getParameter("s");
+        final List<Customer> customers = Customer.findByName(s);
         request.setAttribute("customers", customers);
         getServletContext().getRequestDispatcher("/CustomerList.jsp").forward(request, response);
     }

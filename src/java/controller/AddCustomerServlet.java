@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.IOException;
@@ -22,33 +17,22 @@ import model.Customer;
 @WebServlet(name = "AddCustomerServlet", urlPatterns = {"/AddCustomer"})
 public class AddCustomerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String id = request.getParameter("inputId");
-            String name = request.getParameter("inputName");
-            String email = request.getParameter("inputEmail");
-            String creditLimit = request.getParameter("inputCreditLimit");
-            Customer customer = new Customer();
-            customer.setCustomerId(Integer.parseInt(id));
-            customer.setName(name);
-            customer.setEmail(email);
-            customer.setCreditLimit(Integer.parseInt(creditLimit));
-            customer.insertNewCustomer();
-            List<Customer> customers = Customer.findByName(name);
-            request.setAttribute("customers", customers);
-            getServletContext().getRequestDispatcher("/CustomerList.jsp").forward(request, response);
-        }
+        final String id = request.getParameter("inputId");
+        final String name = request.getParameter("inputName");
+        final String email = request.getParameter("inputEmail");
+        final String creditLimit = request.getParameter("inputCreditLimit");
+        final Customer customer = new Customer();
+        customer.setCustomerId(Integer.parseInt(id));
+        customer.setName(name);
+        customer.setEmail(email);
+        customer.setCreditLimit(Integer.parseInt(creditLimit));
+        customer.insertNewCustomer();
+        final List<Customer> customers = Customer.findByName(name);
+        request.setAttribute("customers", customers);
+        getServletContext().getRequestDispatcher("/CustomerList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
