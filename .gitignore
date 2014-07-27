@@ -7,6 +7,16 @@
 *.jar
 *.war
 *.ear
+*.smap
+*.netbeans_automatic_build
+*.netbeans_update_resources
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+ant-deploy.xml
+build-impl.xml
+genfiles.properties
+private.properties
+private.xml
+project.properties
+project.xml
