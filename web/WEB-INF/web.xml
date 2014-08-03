@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <welcome-file-list>
         <welcome-file>AddCustomer.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>TestLifeCycle</servlet-name>
+        <servlet-class>controller.TestLifeCycle</servlet-class>
+        <init-param>
+            <param-name>initCounter</param-name>
+            <param-value>1000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>background</param-name>
+            <param-value>green</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestLifeCycle</servlet-name>
+        <url-pattern>/TestLifeCycle</url-pattern>
+    </servlet-mapping>
     <!--    <servlet>
         <servlet-name>SearchCustomer</servlet-name>
         <servlet-class>controller.SearchCustomer</servlet-class>
@@ -26,4 +40,4 @@
             30
         </session-timeout>
     </session-config>
-</web-app>
+    </web-app>
