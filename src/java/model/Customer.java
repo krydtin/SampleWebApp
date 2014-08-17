@@ -95,6 +95,24 @@ public class Customer {
         return customers;
     }
 
+    public static int updateCustomer(int id, String name, int creditLimit, String email) {
+        try (final Connection con = ConnectionBuilder.getConnection()) {
+            final String sqlCmd = "UPDATE customer "
+                                + "SET customer_id = ?, name = ?, credit_limit = ?, email = ? "
+                                + "WHERE name = ?";
+            final PreparedStatement ps = con.prepareStatement(sqlCmd);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setInt(3, creditLimit);
+            ps.setString(4, email);
+            ps.setString(5, name);
+            return ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        return -1;
+    }
+
     public int insertNewCustomer() {
         try (final Connection con = ConnectionBuilder.getConnection()) {
             final String sqlCmd = "INSERT INTO customer (customer_id, name, credit_limit, email, zip, discount_code) "

@@ -1,7 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,25 +18,20 @@ import model.Customer;
  *
  * @author maq
  */
-@WebServlet(name = "AddCustomerServlet", urlPatterns = {"/AddCustomer"})
-public class AddCustomerServlet extends HttpServlet {
+@WebServlet(name = "UpdateCustomerServlet", urlPatterns = {"/UpdateCustomerServlet"})
+public class UpdateCustomerServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        final String id = request.getParameter("inputId");
-        final String name = request.getParameter("inputName");
-        final String email = request.getParameter("inputEmail");
-        final String creditLimit = request.getParameter("inputCreditLimit");
-        final Customer customer = new Customer();
-        customer.setCustomerId(Integer.parseInt(id));
-        customer.setName(name);
-        customer.setEmail(email);
-        customer.setCreditLimit(Integer.parseInt(creditLimit));
-        customer.insertNewCustomer();
-        final List<Customer> customers = Customer.findByName(name);
-        request.setAttribute("customers", customers);
-        getServletContext().getRequestDispatcher("/CustomerList.jsp").forward(request, response);
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String creditLimit = request.getParameter("creditLimit");
+        String email = request.getParameter("email");
+        int result = Customer.updateCustomer(Integer.parseInt(id), name, Integer.parseInt(creditLimit), email);
+        String re = result > 0 ? "success" : "fail";
+        request.setAttribute("updateResult", re);
+        getServletContext().getRequestDispatcher("/UpdateCustomer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,30 +16,29 @@ public class MultiplecationTableServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        final String str = request.getParameter("number");
-        int number = Integer.parseInt(str);
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MultiplecationTableServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<table>");
-            out.println("<tr><td colspan=5>Multiplication Table Of " + str + "</td></tr>");
-            for (int i = 1; i <= 12; i++) {
-                out.println("<tr>"
-                        + "     <td>" + number + "</td>"
-                        + "     <td> x </td>"
-                        + "     <td>" + i + "</td>"
-                        + "     <td> = </td><td>" + number * i + "</td>"
-                        + "</tr>");
-            }
-            out.println("</table>");
-            out.println("</body>");
-            out.println("</html>");
+        String message = "";
+        final String str = request.getParameter("n");
+        int n = 0;
+        if (str == null) {
+            message = "Invalid parameter please provide positive number !";
+        } else if (isNumber(str)) {
+            n = Integer.parseInt(str);
+        } else {
+            message = "Invalid parameter 'n' must be integer numbe ONLY !";
         }
+        request.setAttribute("number", n);
+        request.setAttribute("msg", message);
+        getServletContext().getRequestDispatcher("/MultiplyTable.jsp").forward(request, response);
+    }
+
+    private boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

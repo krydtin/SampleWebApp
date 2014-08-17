@@ -4,6 +4,8 @@
     Author     : INT676
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -19,6 +21,7 @@
             <input type="submit" value="Search" />
         </form>
         <hr>
+       
         <c:forEach items="${customers}" var="c">
             ${c.name} ${c.email}<br> 
         </c:forEach>
